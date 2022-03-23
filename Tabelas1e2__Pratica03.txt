@@ -158,3 +158,23 @@ Select Musica.titulo, Album.nome from Musica
 select Musica.titulo, Musica.artista, Musica.genero, Album.nome from Musica
 	join Album on Album.idAlbum = Musica.fkAlbum
     where musica.genero = 'rap';
+    
+    
+    ___________________________________________
+    
+    
+    create database sprint1;
+use sprint1;
+
+create table Professor (
+idProfessor int primary key auto_increment,
+nome varchar (50),
+sobrenome varchar (50),
+especialidade1 varchar (40),
+especialidade2 varchar (40)
+);
+
+insert into Professor (nome, sobrenome, especialidade1, especialidade2) values
+('Rodolfo' , 'Cavalcante ' , 'Biologia' , 'Quimica'),
+('Reginaldo' , 'Silva' , 'Ed.Fisica' , 'Fisica'),
+('Regiane' , 'Solza ' , 'Artes' , 'Filosofia'
