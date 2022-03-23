@@ -1,0 +1,160 @@
+-- select andar, lado from sala;
+-- select contat(andar,lado) from sala; 
+-- aliases = apelido
+-- select contat (andar,lado) as nome sala from sala;
+
+
+create database faculdade;
+use faculdade;
+
+create table sala(
+idsala int primary key  auto_increment,
+lado varchar(45),
+andar varchar (45)
+);
+
+insert into sala (lado, andar) values
+('A' , '4'),
+('B' , '3'),
+('c' , '6');
+
+create table notebook(
+idNotebook int primary key auto_increment,
+faculdade varchar (45),
+unidade varchar (45), 
+patrimonio varchar (45),
+so1 varchar (45),
+so2 varchar (45)
+);
+
+drop table note
+
+insert into notebook (faculdade, unidade, patrimonio, so1, so2) values
+('sptech' , 'hadock' , '2202' , 'windows' ,'linux'),
+('sptech' , 'hadock' , '2100' , 'mac OS' ,'windows'),
+('sptech' , 'hadock' , '2030' , 'ubuntu' ,'mac OS'),
+('sptech' , 'hadock' , '2103' , 'linux' ,'windows'),
+('sptech' , 'hadock' , '2205' , 'linux' , 'ubuntu');
+
+alter table notebook add foreign key (fksala) references sala (idsala);
+
+update notebook set fksala = 1 where idNoteBook = 1;
+
+
+
+
+
+
+create database sprint2;
+use sprint2;
+
+create table Atleta (
+idAtleta int primary key auto_increment,
+nome varchar (40),
+modalidade varchar (40),
+qtdMedalha int
+);
+
+insert into Atleta values 
+(null , 'Alison' , ' natação ' , 5  ),
+(null , 'Everson ' , 'natação' , 6 ),
+(null , 'João ' , 'natação ' , 3 ),
+(null , 'Nathalia' , 'volei' , 4 ), 
+(null, 'Livia ' , 'volei' , 9 ),
+(null , 'Rafaela' , 'volei' , 7),
+(null , 'Lucas' , 'tenis' , 4),
+(null , 'Felipe' , 'tenis' , 2),
+(null , 'Igor' , 'tenis' , 1 );
+
+create table Pais (
+idPais int primary key auto_increment,
+nome varchar (30),
+capital varchar (40)
+);
+
+insert into Pais values 
+(null , 'Suiça' , 'Berna'),
+(null, 'Inglaterra' , 'Londres'),
+(null, 'Brasil' , 'Rio de Janeiro'),
+(null, ' Paris' , 'França');
+
+alter table Atleta add column fkPais int;
+alter table Atleta add foreign key (fkPais)
+	references Pais (idPais);
+
+desc Atleta;
+
+select * from Pais;
+
+select * from Atleta;
+
+update Atleta set fkPais = 1 where idAtleta =  1 or idAtleta = 2;
+update Atleta set fkPais = 2 where idAtleta =  3 or idAtleta = 4;
+update Atleta set fkPais = 3 where idAtleta =  5 or idAtleta = 6;
+update Atleta set fkPais = 4 where idAtleta = 7  or idAtleta = 8;
+update Atleta set fkPais = 2 where idAtleta =  9;
+
+Select * from Atleta;
+
+select fkPais , nome from Atleta;
+
+Select * from Atleta
+	join Pais on idPais = fkPais
+    where modalidade = 'tenis';
+-- 
+
+Create table Musica (
+idMusica int primary key auto_increment,
+titulo varchar (40),
+artista varchar (40),
+genero varchar (40)
+);
+
+
+
+insert into Musica values
+(null , 'PayPal' , ' teto' , 'trap'),
+(null , 'DiaAzul' , ' teto ' , 'trap'),
+(null , 'Fashion' , ' teto' , 'trap'),
+(null , 'Maçã Verde' , 'Mc Hariel' , 'funk'),
+(null , 'Torcicolo ' , 'Mc Hariel' , 'funk'),
+(null , 'Trovão Azul ' , 'Mc Hariel' , 'funk'),
+(null , 'A vida é um desafio' , 'Racionais' , 'rap'),
+(null , '1 por amor 2 por dinheiro' , 'Racionais', 'rap'),
+(null, 'Jesus chorou' , 'Racionais' , 'rap');
+
+create table Album (
+idAlbum int primary key auto_increment,
+nome varchar (40),
+tipo varchar (40),
+constraint ckTipo check (tipo = 'digital' or  tipo = 'fisico'),
+dtLançamento date
+);
+
+insert into Album values 
+(null , 'Previas.zip' , 'digital' , '2021-04-01'),
+(null, 'Avisa que é o Funk' , 'digital' , '2020-11-09'),
+(null, 'Nada como um Dia após o outro' , 'fisico' , '2002-11-27');
+
+select * from Musica;
+select * from Album;
+
+alter table Musica add column fkAlbum int;
+alter table Musica add foreign key (fkAlbum)
+	references Album (idAlbum);
+desc Musica;
+update Musica set fkAlbum = 1 where idMusica = 1 or idMusica = 2 or idMusica = 3;
+update Musica set fkAlbum = 2 where idMusica = 4 or idMusica = 5 or idMusica = 6;
+update Musica set fkAlbum = 3 where idMusica = 7 or idMusica = 8 or idMusica = 9;
+update Atleta set fkPais = 1 where idAtleta =  1 or idAtleta = 2;
+
+select * from Musica;
+select fkAlbum , titulo from Musica;
+
+Select Musica.titulo, Album.nome from Musica
+	join Album on Album.idAlbum = Musica.fkAlbum
+    where Album.nome = 'Avisa que é o funk';
+
+select Musica.titulo, Musica.artista, Musica.genero, Album.nome from Musica
+	join Album on Album.idAlbum = Musica.fkAlbum
+    where musica.genero = 'rap';
